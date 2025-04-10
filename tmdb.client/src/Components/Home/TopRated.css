@@ -1,0 +1,45 @@
+.element {
+    margin : 5px;
+    border-radius: 10px;
+    padding: 4px;
+    background-color: lavender;
+}
+
+.element:hover {
+    box-shadow: 5px 5px dimgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.title {
+    font-weight: bold;
+    width: 220px;
+}
+
+.section-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.section-title:hover {
+    border: 1px dashed black;
+    padding: 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.collapsed {
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+}
+
+.shown {
+    max-height: 2141px;
+    transition: max-height 0.5s ease-in;
+    overflow: hidden;
+}

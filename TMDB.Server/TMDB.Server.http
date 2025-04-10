@@ -1,0 +1,82 @@
+@Server_HostAddress = http://localhost:5170
+@SimpleAuthCookiesAndTokens_HostAddress = http://localhost:5170
+@email = test1@x.z
+@badPassword = pass
+@password = P455w0rd!
+
+###
+
+# Let's register with a bad password
+# Notice the validation details that are returned
+POST {{SimpleAuthCookiesAndTokens_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{badPassword}}",
+  "confirmPassword": "{{badPassword}}"
+}
+
+###
+
+# Now a valid one
+POST {{SimpleAuthCookiesAndTokens_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "confirmPassword": "{{password}}"
+}
+
+###
+
+# Let's login with a bad password
+POST {{SimpleAuthCookiesAndTokens_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{badPassword}}"
+}
+
+###
+
+# And the right one. Be sure to copy and paste the tokens from the response.
+# Notice you get when the current token will expire in the response.
+POST {{SimpleAuthCookiesAndTokens_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+
+# these come from the previous response
+@accessToken = CfDJ8EvTja_t0s9KpXQCjfCnQwW52Wp7fS2GXfdeWPPR_q50lp7OGntzE02ses9hkGohdD4HtEUFVNHVFjBzBv3ldLpRQCb12F1q7wn92fpfYeWYM0_VY-7Y1zDHcdseQ6KUsrtvpATWsO3Lpe1PL_sVXCv04cFTgBRrnKl1SCngsEc4Of_Nog5SAMWIuzqB5Wj2g2JmZR3vHSPPoqi9HEz-1d86vNdAGi-JRne1Q8il1HkVDI_EjJeSky45nJXNtjAqVwIwzdD2S8AoVclPHTrNX9_-0h3oChyX1YsaQ0N2ULT2owcH9IfFH8846P104jZB2PH_biOPhb2EI3O_SP76HQvQ2LG8C7K5gP0ME-lTOko820j-T_uBoEq-eLdKrc5aOlnPlNy6MNx7GIaqYIrX_KWTNvb9Rwyud2Fza5RmMzGJ7EasQm1TCJ4XUCd75UJ6ZY6xKgQ3mCdk3e2IfjnKZhqnVw54soWnSynL6nxBsQhedRE6iwV8CWK6c1iaUrZXkiJFpII2BOx9hExyV1GVogjDBxzDdYTEeHKcIPXd9xjPq99_F2446lnVeeS_EoR195qcB1ACsuRCc7G0qByJX9fZzEuKi74l0yG0rd3p-3Pl_8HzTnRXmnP9l6zs2i3iduVo5jP1CtBmZev08mYGm-755gctcPi55fcUmm5jWpzK
+@refreshToken = CfDJ8EvTja_t0s9KpXQCjfCnQwVYYkJQs36EdaP34lVTuCu5qaHBRiB-KNVDOdheORSWGzLhV8QukKsynxuPKDqWskSgVazVvZTGT12Ipt4sc2fjcuhGptqtGNU-58_5pDGeKig3qz6sG7627AcdyzaEINoOmaIHmIr7tOip04f3yjKdFeWdCjlejn_4kFcwsSW4yyb-JueSHndNn4s1Q48eiu-VDTApafFP3fvvEdonreca5Hdo6hRV8NWv3CR73-RFLdPn5RmtbmansaRw92lL66_-NAnL-_pfHd0WywtWbiHlTGzee5yWSwfv3TfzoGoN7vxW63MMZRksVciWmCEiRP0Z0425DQ4EFE6diblCHSVIXqv9W7iREN8k3nkuyDHpGgOh1zzyxy3mdH9cW9SQJQyjmdPwpN0RuCJqDGzQJY4at_VqiIa2pHSBHpIlaByTgugxGHtsGnkDM2Bm1fecfFQgxb3RQVyjtmkh3cyMAorxm46wNNxQ08scQaZmpdVf_Vc7p_q9_uxu3jD_ITJ5MfleMRWaIWfyR9zGpQ8QAcMeAAqBS-8mJp-z_GfzFgTI7PtXRMIxyDgraQ-PkfR9A5EoOz3O8buXRfdsNVDWoFueIZXa5WKVLLEwhY3VGmGXV0M7Qz33D7Mz-v3Z2Jjltu3PkZC_OjoeYWvPOpd0yXmf
+
+# Let's try secured endpoint again, this time with a token
+# This should return the "user"
+GET {{SimpleAuthCookiesAndTokens_HostAddress}}/user/GetUserName
+Authorization: Bearer {{accessToken}}
+Accept: application/json
+
+###
+
+# Now assume the session is about to expire and you want to extend the session without forcing the user to login again.
+POST {{SimpleAuthCookiesAndTokens_HostAddress}}/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}" 
+}
+
+###
+
+# You should get a new set of credentials, including the refresh token
+
+
+###

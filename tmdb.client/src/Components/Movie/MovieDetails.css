@@ -1,0 +1,52 @@
+.movie-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.movie-tagline {
+    text-align: center;
+    font-style: italic;
+}
+
+.genre {
+    border: 3px solid lightgray;
+    border-radius: 15px;
+    padding: 0 4px 2px 4px;
+    background: whitesmoke;
+    font-weight: bold;
+}
+
+.genre-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.slider-container {
+    margin: 0 auto;
+    width: 1256px;
+}
+
+.slider-container .slick-prev:before,
+.slider-container .slick-next:before {
+    color: black;
+}
+
+#posters {
+    margin-top: 20px;
+}
+
+.gallery-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.jump-button {
+    margin: 10px;
+    border-radius: 8px;
+    background: azure;
+}
+
+.jump-button:hover {
+    background: darkgrey;
+}
